@@ -1,0 +1,51 @@
+{
+    "name": "dravasp/magento/address-autocomplete",
+    "description": "Google Places API Address Autocomplete - Magento 2 Address Autocomplete Module using Google Places API",
+    "version": "0.0.1",
+    "minimum-stability": "stable",
+    "require": {
+		"php": "~7.0.0|^8.2",
+		"magento/framework": "100.*|101.*|102.*|103.*",
+		"magento/module-sales": "100.0.*",
+		"magento/module-checkout": "100.0.*",
+		"magento/module-payment": "100.0.*"
+    },
+    "keywords": [
+        "google",
+        "magento commerce",
+        "location autocomplete",
+        "atmanirbhar bharat india",
+        "address verification",
+        "location api",
+        "customer shipping",
+	"uae uk usa india ksa"
+    ],
+    "authors": [
+        {
+            "name": "Sentinnel One",
+            "homepage": "https://mapsplatform.google.com/resources/blog/next-generation-autocomplete-is-now-available-in-preview",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/dravasp/magentoaddressautocomplete",
+        "issues": "https://github.com/dravasp/magentoaddressautocomplete",
+        "docs":
+            "https://github.com/dravasp/magentoaddressautocomplete/blob/main/README.md"
+    },
+    "homepage": "https://mapsplatform.google.com/maps-products/places",
+    "suggest": {
+        "magento/module-checkout-agreements": "100.*"
+    },
+    "type": "magento2-module",
+    "license": [
+		"OSL-3.0",
+        "AFL-3.0"
+		],
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "Magento\\AddressAutoComplete\\": ""
+        }
+    }
+}
