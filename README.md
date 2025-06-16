@@ -40,6 +40,8 @@ app/code/Magento/AddressAutoComplete/
 └── .gitignore
 ```
 
+View Postman API Collection Workspace - https://bit.ly/3To4cur
+
 ```
 1. Registration File `registration.php`
 File: app/code/Magento/AddressAutoComplete/registration.php
