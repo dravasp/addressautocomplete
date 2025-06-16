@@ -1,12 +1,17 @@
+Magento OS Commerce 2.4.8 (ver.2.4x) compatible module tha handles Address Autocomplete on Customer Registration, Billing and Shipping Address Line on Magento Hosted Checkout Page - uses the Google Places API - Compliant AVS (Address Verification System) Amex Discover Mastercard Visa - Google Enterprise API - Google Maps - Google Plus Codes - Google Maps Javascript API (Legacy) compliant
+
+```
 cd /opt/bitnami/magento
 composer require dravasp/magento/addressautocomplete:dev-master
 sudo magento-cli setup:upgrade
+```
 
-code Data Structure - Magento Magento module will handle Address Autocomplete using the Google Places API
-This guide provides a step-by-step approach to replicate the address autocomplete functionality without using any specific third-party APIs or components.
+`code Data Structure - Magento Magento module will handle Address Autocomplete using the Google Places API`
+`This guide provides a step-by-step approach to replicate the address autocomplete functionality without using any specific third-party APIs or components.`
 
-Directory Structure is as follows -
+`Directory Structure is as follows -`
 
+```
 app/code/Magento/AddressAutoComplete/
 ├── registration.php
 ├── etc
@@ -33,27 +38,33 @@ app/code/Magento/AddressAutoComplete/
 │       └── autocomplete.phtml
 ├── composer.json
 └── .gitignore
+```
 
+```
 1. Registration File `registration.php`
 File: app/code/Magento/AddressAutoComplete/registration.php
-
+```
+```
 <?php
 use Magento\Framework\Component\ComponentRegistrar;
-
 ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Magento_AddressAutoComplete', __DIR__);
+```
 
+```
 2. Module Declaration File `module.xml` **********
 File: app/code/Magento/AddressAutoComplete/etc/module.xml
-
+```
+```
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Magento_AddressAutoComplete" setup_version="0.0.1"/>
 </config>
-
+```
+```
 3. Dependency Injection Configuration (Optional) **********
 If you need to configure dependency injection, you can create a di.xml file.
-
 File: app/code/Magento/AddressAutoComplete/etc/di.xml
-
+```
+```
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
@@ -63,10 +74,12 @@ File: app/code/Magento/AddressAutoComplete/etc/di.xml
         </arguments>
     </type>
 </config>
-
-4. Create `config.xml` **********
+```
+```
+4. Create `config.xml`
 File: app/code/Magento/AddressAutoComplete/etc/config.xml
-
+```
+```
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/system_file.xsd">
     <system>
         <section id="shipping">
@@ -91,10 +104,12 @@ File: app/code/Magento/AddressAutoComplete/etc/config.xml
         </section>
     </system>
 </config>
-
+```
+```
 5. Helper Class
 File: app/code/Magento/AddressAutoComplete/Helper/Data.php
-
+```
+```
 <?php
 namespace Magento\AddressAutoComplete\Helper;
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -105,10 +120,12 @@ class Data extends AbstractHelper
         return $this->scopeConfig->getValue($field, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }
-
+```
+```
 6. Config Provider
 File: app/code/Magento/AddressAutoComplete/Model/AutoCompleteConfigProvider.php
-
+```
+```
 <?php
 namespace Magento\AddressAutoComplete\Model;
 
@@ -135,11 +152,12 @@ class AutoCompleteConfigProvider implements ConfigProviderInterface
         ];
     }
 }
-
+```
+```
 7. Create `Autocomplete.php`
-
 File: app/code/Magento/AddressAutoComplete/ViewModel/Autocomplete.php
-
+```
+```
 <?php
 namespace Magento\AddressAutoComplete\ViewModel;
 
@@ -159,10 +177,12 @@ class Autocomplete implements ArgumentInterface
         return $this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }
-
+```
+```
 8. Layout XML File - checkout_index_index.xml
 File: app/code/Magento/AddressAutoComplete/view/frontend/layout/checkout_index_index.xml
-
+```
+```
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.root">
@@ -182,11 +202,12 @@ File: app/code/Magento/AddressAutoComplete/view/frontend/layout/checkout_index_i
         </referenceBlock>
     </body>
 </page>
-
-
+```
+```
 9. JavaScript File
 File: app/code/Magento/AddressAutoComplete/view/frontend/web/js/autocomplete.js
-
+```
+```
 define(['jquery'], function ($) {
     var apiKey = window.checkoutConfig.address_autocomplete.api_key;
 
@@ -216,33 +237,33 @@ define(['jquery'], function ($) {
         document.head.appendChild(script);
     }
 });
-
-
+```
+```
 10. Create `autocomplete.phtml`
 File: app/code/Magento/AddressAutoComplete/templates/address/autocomplete.phtml
-
+```
+```
 <div>
     <input type="text" id="autocomplete" placeholder="Enter your address" />
 </div>
+```
 
-Final - Google Places API - Maps Enterprise API - Address autocomplete functionality works as expected on the checkout page.
+`Google Places API - Maps Enterprise API - Address autocomplete functionality works as expected on the checkout page.`
 
-Optional - Style Customization as per Maps Display - (Optional Places Markers and Style Embed)
+```
+`Optional - Style Customization as per Maps Display - (Optional Places Markers and Style Embed) - Snazzy Maps API (Business - Single Site License) - by Adam Krogh
 
-Snazzy Maps API (Business - Single Site License) - by Adam Krogh
 Type of API used - Google Maps JavaScript API (Add Custom Styles to Embedded Maps across CMS)
-
 You can enable Paid API calls via Google Cloud Console Dashboard - Google Maps Platform API - Google Autocomplete (Third-party) (Address Verification) (Limit results to Country)
 
 Google Maps JavaScript API is different from Place Autocomplete (Legacy) / Migrate to Place Autocomplete (New)
 google API - URL - https://console.cloud.google.com/marketplace/product/google/maps-backend.googleapis.com?inv=1&invt=Ab0NGA
 Google Enterprise API - URL (legacy support) - https://console.cloud.google.com/marketplace/product/google/places-backend.googleapis.com?inv=1&invt=Ab0NGA
 Google Enterprise API - URL (migrate to latest) - https://console.cloud.google.com/marketplace/product/google/places.googleapis.com?inv=1&invt=Ab0NGA
+```
 
-Autocomplete - In the News
-
-View Article James Harrison, Product Manager at Google published Feb 21, 2024
+```
+Autocomplete - In the News - View Article James Harrison, Product Manager at Google published Feb 21, 2024
 Next generation Autocomplete is now available in Preview
 https://mapsplatform.google.com/resources/blog/next-generation-autocomplete-is-now-available-in-preview/
-#   a d d r e s s a u t o c o m p l e t e  
- 
+```
