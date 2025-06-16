@@ -2,7 +2,7 @@ Magento OS Commerce 2.4.8 (ver.2.4x) compatible module tha handles Address Autoc
 
 ```
 cd /opt/bitnami/magento
-composer require dravasp/magento/addressautocomplete:dev-master
+composer require dravasp/addressautocomplete:dev-master
 sudo magento-cli setup:upgrade
 ```
 
